@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import java.io.File; // Ensure this import is present
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,6 @@ public class GalleryActivity extends AppCompatActivity {
         // 获取所有图片
         loadImages();
 
-        // 图片点击事件
         // 图片点击事件
         gvImages.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -66,9 +66,10 @@ public class GalleryActivity extends AppCompatActivity {
         );
 
         if (cursor != null) {
+            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
             while (cursor.moveToNext()) {
                 // 获取图片路径
-                String imagePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
+                String imagePath = cursor.getString(columnIndex);
                 imagePaths.add(imagePath);
             }
             cursor.close();
