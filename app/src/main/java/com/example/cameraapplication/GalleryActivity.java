@@ -33,12 +33,16 @@ public class GalleryActivity extends AppCompatActivity {
         loadImages();
 
         // 图片点击事件
+        // 图片点击事件
         gvImages.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // 打开人脸检测页面，传入图片路径
+                String imagePath = imagePaths.get(position);
                 Intent intent = new Intent(GalleryActivity.this, FaceDetectionActivity.class);
-                intent.putExtra("photo_uri", "file://" + imagePaths.get(position));
+                // 使用 Uri.fromFile 创建 URI
+                Uri imageUri = Uri.fromFile(new File(imagePath));
+                intent.putExtra("photo_uri", imageUri.toString());
                 startActivity(intent);
             }
         });

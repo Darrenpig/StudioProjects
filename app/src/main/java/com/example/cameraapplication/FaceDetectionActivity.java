@@ -21,6 +21,8 @@ import com.google.mlkit.vision.face.FaceDetector;
 import com.google.mlkit.vision.face.FaceDetectorOptions;
 import com.google.mlkit.vision.face.FaceLandmark;
 import java.io.File;
+import java.io.FileInputStream; // 添加这一行
+import java.io.InputStream; // 添加这一行
 import java.util.List;
 
 public class FaceDetectionActivity extends AppCompatActivity {
@@ -43,6 +45,9 @@ public class FaceDetectionActivity extends AppCompatActivity {
             return;
         }
 
+        // 添加调试信息
+        Toast.makeText(this, "照片路径: " + photoPath, Toast.LENGTH_LONG).show();
+
         // 加载原始图片
         loadImage();
 
@@ -57,8 +62,13 @@ public class FaceDetectionActivity extends AppCompatActivity {
             Uri uri = Uri.parse(photoPath);
             InputStream inputStream;
             if (photoPath.startsWith("file://")) {
-                // 处理file://开头的URI
-                inputStream = new FileInputStream(new File(uri.getPath()));
+                // 处理file://开头的URI，需要去除前缀
+                String realPath = uri.getPath();
+                // 在某些设备上，可能需要去除路径前面的 /file: 部分
+                if (realPath.contains("/file:")) {
+                    realPath = realPath.substring(realPath.indexOf("/file:") + 6);
+                }
+                inputStream = new FileInputStream(new File(realPath));
             } else {
                 // 处理content://开头的URI
                 inputStream = getContentResolver().openInputStream(uri);
