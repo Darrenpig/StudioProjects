@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@android:color/white">
+
+    <!-- 标题 -->
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#333333"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="60dp" />
+
+    <!-- 按钮容器 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp">
+
+        <!-- 拍照按钮 -->
+        <Button
+            android:id="@+id/btn_camera"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="打开相机"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_primary"
+            android:layout_marginBottom="20dp"
+            android:elevation="4dp" />
+
+        <!-- 图库按钮 -->
+        <Button
+            android:id="@+id/btn_gallery"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="查看图库"
+            android:textSize="18sp"
+            android:textColor="#333333"
+            android:background="@drawable/button_secondary"
+            android:layout_marginBottom="20dp"
+            android:elevation="2dp" />
+
+        <!-- 已保存滤镜按钮 -->
+        <Button
+            android:id="@+id/btn_saved_filter"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="查看已添加墨镜的图库"
+            android:textSize="18sp"
+            android:textColor="#333333"
+            android:background="@drawable/button_secondary"
+            android:elevation="2dp" />
+    </LinearLayout>
+</LinearLayout>

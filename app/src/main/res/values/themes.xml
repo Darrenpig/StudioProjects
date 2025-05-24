@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.CameraApplication" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <!-- 定义 AppTheme 主题，继承自 Base.Theme.CameraApplication -->
+    <style name="AppTheme" parent="Base.Theme.CameraApplication">
+        <!-- 可以在这里添加自定义的主题属性 -->
+    </style>
+</resources>
