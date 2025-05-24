@@ -53,12 +53,28 @@ public class FaceDetectionActivity extends AppCompatActivity {
     // 加载原始图片
     private void loadImage() {
         try {
-            File file = new File(Uri.parse(photoPath).getPath());
-            originalBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-            ivFullImage.setImageBitmap(originalBitmap);
+            // 修改URI解析方式
+            Uri uri = Uri.parse(photoPath);
+            InputStream inputStream;
+            if (photoPath.startsWith("file://")) {
+                // 处理file://开头的URI
+                inputStream = new FileInputStream(new File(uri.getPath()));
+            } else {
+                // 处理content://开头的URI
+                inputStream = getContentResolver().openInputStream(uri);
+            }
+            
+            if (inputStream != null) {
+                originalBitmap = BitmapFactory.decodeStream(inputStream);
+                inputStream.close();
+                ivFullImage.setImageBitmap(originalBitmap);
+            } else {
+                Toast.makeText(this, "无法加载图片", Toast.LENGTH_SHORT).show();
+                finish();
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "加载图片失败", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "加载图片失败: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             finish();
         }
     }

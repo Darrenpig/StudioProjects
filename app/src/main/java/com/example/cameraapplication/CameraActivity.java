@@ -120,12 +120,20 @@ public class CameraActivity extends AppCompatActivity {
             return;
         }
 
-        File photoFile = new File(getExternalFilesDir(null), System.currentTimeMillis() + ".jpg");
+        // 修改为保存到公共目录
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File photoFile = new File(storageDir, "sunglass_" + System.currentTimeMillis() + ".jpg");
         ImageCapture.OutputFileOptions outputFileOptions = new ImageCapture.OutputFileOptions.Builder(photoFile).build();
 
         imageCapture.takePicture(outputFileOptions, ContextCompat.getMainExecutor(this), new ImageCapture.OnImageSavedCallback() {
             @Override
             public void onImageSaved(ImageCapture.OutputFileResults outputFileResults) {
+                // 通知媒体库更新
+                Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                Uri contentUri = Uri.fromFile(photoFile);
+                mediaScanIntent.setData(contentUri);
+                sendBroadcast(mediaScanIntent);
+                
                 // 拍照成功，返回主页面
                 Intent intent = new Intent(CameraActivity.this, MainActivity.class);
                 startActivity(intent);
